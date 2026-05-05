@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Orbitron", sans-serif;
+}
+
+body {
+  background-color: #E5E5E5;
+  color: #111111;
+}
+
+/* Brutalist Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: #E5E5E5;
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #111111;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #F26122;
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #111111 #E5E5E5;
+}
+
+/* Hide default cursor on desktop to use custom Tactical Cursor */
+@media (pointer: fine) {
+  *:not(input):not(textarea) {
+    cursor: none !important;
+  }
+}
