@@ -1,5 +1,5 @@
 <div align="center">
-<img width="400" alt="Blackbox Labs Logo" src="Assets/BlackBox-Labs-Logo.png" />
+<img width="400" alt="Blackbox Labs Logo" src="Assets/BlackBox-labs-logo2.jpg" />
 </div>
 
 <div align="center">
