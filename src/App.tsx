@@ -56,10 +56,10 @@ function ScrollSpy() {
         const num = String(index + 1).padStart(2, '0');
         const inactiveTextClass = isDark ? 'text-white/60 hover:text-white/80' : 'text-black/60 hover:text-black/80';
         const inactiveBorderClass = isDark ? 'border-white/30 group-hover:border-white/60' : 'border-black/30 group-hover:border-black/60';
-        
+
         return (
-          <a 
-            key={section.id} 
+          <a
+            key={section.id}
             href={`#${section.id}`}
             className={`flex items-center gap-4 py-2 relative z-10 transition-colors duration-200 group ${isActive ? 'text-[#FF4500] font-bold' : inactiveTextClass}`}
           >
@@ -107,38 +107,38 @@ function Terminal() {
         <div className="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
         <div className="text-[9px] text-white/60 ml-2 uppercase tracking-widest font-mono">root@blackbox:~</div>
       </div>
-      
+
       {/* Terminal Body */}
       <div className="p-5 font-mono text-xs md:text-sm text-white/80 flex flex-col gap-2 flex-grow">
         <div className="flex">
           <span className="text-[#F26122] mr-2">{'>'}</span>
           <span>{text}{step === 0 && <span className="w-2 h-3 bg-white/70 inline-block ml-1 animate-pulse"></span>}</span>
         </div>
-        
+
         {step >= 1 && (
           <div className="animate-in fade-in slide-in-from-bottom-1 duration-300">
             <span className="text-green-400">[+]</span> Recon complete. 847 endpoints mapped.
           </div>
         )}
-        
+
         {step >= 2 && (
           <div className="animate-in fade-in slide-in-from-bottom-1 duration-300">
             <span className="text-green-400">[+]</span> CVE-2024-XXXX identified — CVSS 9.8
           </div>
         )}
-        
+
         {step >= 3 && (
           <div className="text-[#F26122] animate-in fade-in slide-in-from-bottom-1 duration-300">
             <span className="font-bold animate-pulse">[!] CRITICAL:</span> Domain Admin reachable in 3 hops.
           </div>
         )}
-        
+
         {step >= 4 && (
           <div className="animate-in fade-in slide-in-from-bottom-1 duration-300">
             <span className="text-yellow-400">[!]</span> Preparing disclosure report...
           </div>
         )}
-        
+
         {step >= 5 && (
           <div className="flex mt-2">
             <span className="text-[#F26122] mr-2">{'>'}</span>
@@ -174,7 +174,7 @@ function PayloadHash() {
   }, [isHovered]);
 
   return (
-    <div 
+    <div
       className="w-32 bg-white border-2 border-black shadow-[6px_6px_0_0_#111] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0_0_#111] transition-all duration-200 flex flex-col p-3 gap-3 cursor-crosshair"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -202,7 +202,7 @@ function OperatorBadge() {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div 
+    <div
       className="w-28 bg-white border-2 border-black shadow-[6px_6px_0_0_#111] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0_0_#111] transition-all duration-200 flex flex-col items-center p-2 gap-2 cursor-crosshair relative overflow-hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -210,20 +210,20 @@ function OperatorBadge() {
     >
       {/* Keycard Clip Hole */}
       <div className="w-6 h-1.5 bg-[#E0E0E0] border border-black/20 rounded-full mt-1 mb-1"></div>
-      
+
       {/* Fingerprint / Scanner Area */}
       <div className="w-full aspect-square border-2 border-black/10 bg-black/5 relative flex items-center justify-center overflow-hidden">
         <Fingerprint className="w-12 h-12 text-black/60" strokeWidth={1} />
-        
+
         {/* Scanning Laser Line */}
-        <motion.div 
+        <motion.div
           className="absolute left-0 right-0 h-0.5 bg-[#F26122] shadow-[0_0_8px_2px_rgba(242,97,34,0.5)]"
           initial={{ top: "0%" }}
           animate={{ top: isHovered ? ["0%", "100%", "0%"] : "0%" }}
-          transition={{ 
-            duration: 1.5, 
-            ease: "linear", 
-            repeat: isHovered ? Infinity : 0 
+          transition={{
+            duration: 1.5,
+            ease: "linear",
+            repeat: isHovered ? Infinity : 0
           }}
           style={{ opacity: isHovered ? 1 : 0 }}
         />
@@ -281,7 +281,7 @@ function VisualShowcase() {
   };
 
   return (
-    <div 
+    <div
       className="flex-grow relative border-b border-black/15 p-8 flex items-center justify-center bg-[#E0E0E0] min-h-[400px]"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -289,7 +289,7 @@ function VisualShowcase() {
     >
       {/* Background Grid Wrapper - Keeps grid lines contained */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div 
+        <motion.div
           className="absolute inset-0 grid grid-cols-6 grid-rows-6 w-[120%] h-[120%] -left-[10%] -top-[10%]"
           style={{ x: bgX, y: bgY }}
         >
@@ -308,17 +308,17 @@ function VisualShowcase() {
       </motion.div>
 
       {/* Floating Badges - Now able to break out of the container */}
-      <motion.div 
+      <motion.div
         className="absolute top-1/4 -left-12 z-30"
         style={{ x: badge1X, y: badge1Y, rotate: -6 }}
       >
-         <PayloadHash />
+        <PayloadHash />
       </motion.div>
-      <motion.div 
+      <motion.div
         className="absolute bottom-24 -right-2 z-30"
         style={{ x: badge2X, y: badge2Y, rotate: 8 }}
       >
-         <OperatorBadge />
+        <OperatorBadge />
       </motion.div>
     </div>
   );
@@ -398,7 +398,7 @@ function AuthorizationOverride() {
   }, [isHolding, isUnlocked]);
 
   return (
-    <button 
+    <button
       type="button"
       data-sound="none"
       aria-label="Authorization Override — click and hold to activate"
@@ -420,19 +420,19 @@ function AuthorizationOverride() {
       }}
     >
       {isUnlocked && (
-        <motion.div 
-          initial={{ opacity: 1 }} 
-          animate={{ opacity: 0 }} 
-          transition={{ duration: 0.5 }} 
-          className="absolute inset-0 bg-white z-20 pointer-events-none" 
+        <motion.div
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="absolute inset-0 bg-white z-20 pointer-events-none"
         />
       )}
-      
+
       <div className="font-mono text-[10px] uppercase tracking-widest text-black/60 mb-2 flex items-center gap-2 relative z-10">
         <span className={`w-2 h-2 ${isUnlocked ? 'bg-[#F26122] animate-pulse' : 'bg-red-600'} ${isHolding && !isUnlocked ? 'animate-ping' : ''}`}></span>
         System Status
       </div>
-      
+
       {isUnlocked ? (
         <div className="font-mono text-xs uppercase tracking-widest text-[#F26122] font-bold relative z-10">
           ALL ENGAGEMENTS AUTHORIZED
@@ -444,7 +444,7 @@ function AuthorizationOverride() {
             <span className="text-[10px] text-red-600/60">{isHolding ? hexCode : '[HOLD TO OVERRIDE]'}</span>
           </div>
           <div className="w-full h-2 border border-black/30 bg-black/5 relative overflow-hidden">
-            <div 
+            <div
               className="absolute top-0 left-0 h-full bg-red-600 transition-all duration-75"
               style={{ width: `${progress}%` }}
             />
@@ -457,7 +457,7 @@ function AuthorizationOverride() {
 
 function CountUp({ end, decimals = 0, prefix = "", suffix = "", duration = 2000 }: { end: number, decimals?: number, prefix?: string, suffix?: string, duration?: number }) {
   const [count, setCount] = useState(0);
-  
+
   useEffect(() => {
     let startTime: number;
     let animationFrame: number;
@@ -467,7 +467,7 @@ function CountUp({ end, decimals = 0, prefix = "", suffix = "", duration = 2000 
       const progress = timestamp - startTime;
       const percentage = Math.min(progress / duration, 1);
       const easeOut = percentage === 1 ? 1 : 1 - Math.pow(2, -10 * percentage);
-      
+
       setCount(end * easeOut);
 
       if (progress < duration) {
@@ -491,7 +491,7 @@ function ThreatIntelligenceDashboard() {
     <AnimatedSection id="intel" number="02" title="INTELLIGENCE" theme="light" className="flex flex-col z-10">
       {/* 1. The Kill Board (Core Stats) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-b border-black/15">
-        
+
         {/* Stat 1 */}
         <div className="p-8 md:p-12 border-b md:border-b-0 md:border-r border-black/15 flex flex-col justify-between group hover:bg-black/5 transition-colors">
           <div className="font-mono text-[10px] uppercase tracking-widest text-black/60 mb-8 flex items-center gap-2">
@@ -563,8 +563,8 @@ function ThreatIntelligenceDashboard() {
       <div className="bg-black text-[#F26122] border-b border-black/15 overflow-hidden flex items-center py-3 relative group cursor-default">
         <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-black to-transparent z-10"></div>
         <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-black to-transparent z-10"></div>
-        
-        <motion.div 
+
+        <motion.div
           className="flex whitespace-nowrap font-mono text-[10px] uppercase tracking-widest"
           animate={{ x: ["0%", "-50%"] }}
           transition={{ ease: "linear", duration: 25, repeat: Infinity }}
@@ -720,14 +720,14 @@ function ServiceDossierCard({ service }: { service: any, key?: string }) {
         <p className="font-sans text-sm text-black/70 leading-relaxed mb-6">
           {service.body}
         </p>
-        
+
         {service.id === '04' && (
           <div className="mt-auto mb-6 bg-[#DC2626] text-white p-4 font-mono text-[10px] uppercase tracking-widest leading-relaxed border-l-4 border-black shadow-[4px_4px_0_rgba(0,0,0,1)]">
-            <span className="font-bold block mb-1">⚠️ CRITICAL STAT:</span> 
+            <span className="font-bold block mb-1">⚠️ CRITICAL STAT:</span>
             88% of all cyber incidents are caused by human error. Your people are the most exploited attack surface you have.
           </div>
         )}
-        
+
         <div className={`font-mono text-[10px] text-[#F26122] font-bold flex items-center gap-2 ${service.id !== '04' ? 'mt-auto' : ''}`}>
           <span className="animate-pulse">&gt;</span> VIEW_CAPABILITIES_
         </div>
@@ -741,7 +741,7 @@ function ServiceDossierCard({ service }: { service: any, key?: string }) {
             [ {service.tag} ]
           </div>
         </div>
-        
+
         <div className="font-mono text-[10px] uppercase tracking-widest text-[#F26122] mb-4">What's Included:</div>
         <ul className="space-y-3 mb-auto overflow-y-auto pr-2">
           {service.bullets.map((bullet: string, i: number) => (
@@ -755,7 +755,7 @@ function ServiceDossierCard({ service }: { service: any, key?: string }) {
           <div className="font-mono text-[10px] uppercase tracking-widest text-white/50 mb-2">Target Industries:</div>
           <div className="font-sans text-xs text-white/90 font-medium leading-relaxed">{service.industries}</div>
         </div>
-        
+
         {/* Hidden SEO Keywords for Crawlers */}
         <div className="sr-only">{service.keywords}</div>
       </div>
@@ -770,7 +770,7 @@ function ServicesSection() {
       <div className="p-8 md:p-12 lg:p-20 border-b border-black/15 flex flex-col md:flex-row gap-8 md:gap-16 justify-between items-start md:items-end">
         <div className="max-w-3xl">
           <h2 className="text-5xl md:text-7xl font-bold uppercase leading-[0.85] tracking-tighter">
-            Attack Surface.<br/>
+            Attack Surface.<br />
             <span className="text-[#F26122]">Fully Covered.</span>
           </h2>
         </div>
@@ -811,7 +811,7 @@ function ServicesSection() {
             [ BOOK A SCOPING CALL ] <ArrowRight className="w-3 h-3" />
           </Link>
           <Link to="/request-audit" className="font-mono text-[10px] uppercase tracking-widest px-8 py-4 border border-white/30 hover:bg-white/10 transition-colors flex items-center justify-center gap-3 group">
-            [ DOWNLOAD SERVICE BRIEF PDF ] 
+            [ DOWNLOAD SERVICE BRIEF PDF ]
             <ArrowDown className="w-3 h-3 transform group-hover:translate-y-1 transition-transform" />
           </Link>
         </div>
@@ -995,14 +995,14 @@ function MethodologySection() {
       {/* Header */}
       <div className="p-8 md:p-12 lg:p-20 border-b border-black/15">
         <h2 className="text-5xl md:text-7xl font-bold uppercase leading-[0.85] tracking-tighter mb-8">
-          The Playbook<br/>
-          Real Attackers Use.<br/>
+          The Playbook<br />
+          Real Attackers Use.<br />
           <span className="text-[#F26122]">Legally.</span>
         </h2>
         <p className="max-w-2xl font-mono text-sm md:text-base leading-relaxed text-black/70 mb-12">
           Every Blackbox Labs engagement follows a battle-tested 7-phase methodology aligned to MITRE ATT&CK, the Cyber Kill Chain, and TIBER-EU — the same frameworks used by nation-state threat actors. We don't improvise. We execute.
         </p>
-        
+
         {/* Loaded Modules (Frameworks) */}
         <div className="flex flex-wrap gap-3">
           {frameworks.map((fw, i) => (
@@ -1019,8 +1019,8 @@ function MethodologySection() {
           const isActive = activePhase === phase.id;
           return (
             <div key={phase.id} className={`border-b border-black/15 transition-colors duration-0 ${isActive ? 'bg-[#111] text-white' : 'hover:bg-black/5'}`}>
-              <button 
-                onClick={() => togglePhase(phase.id)} 
+              <button
+                onClick={() => togglePhase(phase.id)}
                 className="w-full p-6 md:p-8 lg:px-20 flex items-center justify-between text-left cursor-crosshair"
               >
                 <div className="flex items-center gap-6 md:gap-12">
@@ -1040,7 +1040,7 @@ function MethodologySection() {
                   {isActive ? '-' : '+'}
                 </div>
               </button>
-              
+
               {isActive && (
                 <div className="p-6 md:p-8 lg:px-20 pt-0 pb-12 border-t border-white/10 animate-in fade-in slide-in-from-top-4 duration-200">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mt-8">
@@ -1052,15 +1052,15 @@ function MethodologySection() {
                           {p}
                         </p>
                       ))}
-                      
+
                       {phase.stat && (
                         <div className="mt-8 bg-[#DC2626] text-white p-6 font-mono text-xs uppercase tracking-widest leading-relaxed border-l-4 border-[#F26122] shadow-[4px_4px_0_rgba(242,97,34,0.5)]">
-                          <span className="font-bold block mb-2 text-[#111]">⚠️ CRITICAL INTEL:</span> 
+                          <span className="font-bold block mb-2 text-[#111]">⚠️ CRITICAL INTEL:</span>
                           {phase.stat}
                         </div>
                       )}
                     </div>
-                    
+
                     {/* Right Col: What we do */}
                     <div className="lg:col-span-5">
                       <div className="font-mono text-[10px] uppercase tracking-widest text-[#F26122] mb-6">Execution Parameters:</div>
@@ -1071,14 +1071,14 @@ function MethodologySection() {
                           </li>
                         ))}
                       </ul>
-                      
+
                       <div className="mt-8 pt-6 border-t border-white/10">
                         <div className="font-mono text-[10px] uppercase tracking-widest text-white/60 mb-2">Framework Alignment:</div>
                         <div className="font-mono text-xs text-white/70">{phase.frameworks}</div>
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* SEO Keywords (Hidden) */}
                   <div className="sr-only">{phase.seo}</div>
                 </div>
@@ -1128,7 +1128,7 @@ function MethodologySection() {
       {/* Section CTA */}
       <div className="p-8 md:p-12 lg:p-20 flex flex-col items-center justify-center text-center bg-black/5 border-t border-black/15">
         <p className="font-mono text-sm md:text-base text-black/80 max-w-2xl mb-8 leading-relaxed">
-          Every engagement starts with a conversation.<br/>
+          Every engagement starts with a conversation.<br />
           Not a sales pitch — a threat model discussion.
         </p>
         <Link to="/scoping-call" data-sound="heavy" className="bg-black text-[#F26122] font-mono text-[10px] uppercase tracking-widest px-8 py-4 hover:bg-[#F26122] hover:text-white transition-colors flex items-center justify-center gap-3">
@@ -1341,14 +1341,14 @@ function CaseStudyCard({ study }: { study: any, key?: string }) {
         {/* Decrypt Action */}
         <div className="mt-auto">
           {!isDecrypted ? (
-            <button 
+            <button
               onClick={() => setIsDecrypted(true)}
               className="w-full py-4 border border-black text-black font-mono text-[10px] uppercase tracking-widest hover:bg-black hover:text-white transition-colors flex items-center justify-center gap-2"
             >
               <Fingerprint className="w-4 h-4" /> [ DECRYPT AFTER-ACTION REPORT ]
             </button>
           ) : (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               className="bg-[#111] text-white p-6 border-l-4 border-[#F26122]"
@@ -1381,8 +1381,8 @@ function CaseStudiesSection() {
   const [activeFilter, setActiveFilter] = useState('All Engagements');
   const filters = ['All Engagements', 'Financial', 'Cloud / SaaS', 'Critical Infrastructure', 'Government / Defense', 'Healthcare'];
 
-  const filteredStudies = activeFilter === 'All Engagements' 
-    ? caseStudiesData 
+  const filteredStudies = activeFilter === 'All Engagements'
+    ? caseStudiesData
     : caseStudiesData.filter(study => study.sector === activeFilter);
 
   return (
@@ -1390,24 +1390,23 @@ function CaseStudiesSection() {
       {/* Header */}
       <div className="p-8 md:p-12 lg:p-20 border-b border-black/15">
         <h2 className="text-5xl md:text-7xl font-bold uppercase leading-[0.85] tracking-tighter mb-8">
-          Proof of Work.<br/>
+          Proof of Work.<br />
           <span className="text-[#F26122]">Not Promises.</span>
         </h2>
         <p className="max-w-3xl font-mono text-sm md:text-base leading-relaxed text-black/70 mb-12">
           Every engagement below is real — client identities anonymized under NDA. CVSS scores, attack chains, and findings are published with full authorization. We let the findings speak for themselves.
         </p>
-        
+
         {/* Terminal Filters */}
         <div className="flex flex-wrap gap-2 md:gap-4 bg-black/5 p-4 border border-black/15">
           {filters.map((filter) => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`font-mono text-[10px] md:text-xs uppercase tracking-widest px-4 py-2 transition-colors ${
-                activeFilter === filter 
-                  ? 'bg-black text-[#F26122]' 
-                  : 'bg-transparent text-black/60 hover:bg-black/10 hover:text-black'
-              }`}
+              className={`font-mono text-[10px] md:text-xs uppercase tracking-widest px-4 py-2 transition-colors ${activeFilter === filter
+                ? 'bg-black text-[#F26122]'
+                : 'bg-transparent text-black/60 hover:bg-black/10 hover:text-black'
+                }`}
             >
               &gt; ./filter --sector={filter.toLowerCase().replace(/ /g, '_').replace(/\//g, '')}
             </button>
@@ -1513,7 +1512,7 @@ function WhyUsSection() {
       {/* Header */}
       <div className="p-8 md:p-12 lg:p-20 border-b border-white/15">
         <h2 className="text-5xl md:text-7xl font-bold uppercase leading-[0.85] tracking-tighter mb-8">
-          Why Blackbox Labs<br/>
+          Why Blackbox Labs<br />
           <span className="text-white">Is Different.</span>
         </h2>
         <p className="max-w-4xl font-mono text-sm md:text-base leading-relaxed text-[#F26122] drop-shadow-[0_0_8px_rgba(242,97,34,0.4)]">
@@ -1532,15 +1531,13 @@ function WhyUsSection() {
               key={item.id}
               onMouseEnter={() => setHoveredId(item.id)}
               onMouseLeave={() => setHoveredId(null)}
-              className={`bg-[#111] p-8 md:p-12 transition-all duration-300 relative cursor-crosshair flex flex-col ${
-                isDimmed ? 'opacity-30' : 'opacity-100'
-              } ${isHovered ? 'z-10 shadow-[0_0_30px_rgba(242,97,34,0.15)]' : 'z-0'}`}
+              className={`bg-[#111] p-8 md:p-12 transition-all duration-300 relative cursor-crosshair flex flex-col ${isDimmed ? 'opacity-30' : 'opacity-100'
+                } ${isHovered ? 'z-10 shadow-[0_0_30px_rgba(242,97,34,0.15)]' : 'z-0'}`}
             >
               {/* Target Lock Border */}
               <div
-                className={`absolute inset-0 border-2 transition-colors duration-300 pointer-events-none ${
-                  isHovered ? 'border-[#F26122]' : 'border-transparent'
-                }`}
+                className={`absolute inset-0 border-2 transition-colors duration-300 pointer-events-none ${isHovered ? 'border-[#F26122]' : 'border-transparent'
+                  }`}
               >
                 {/* Corner Accents */}
                 {isHovered && (
@@ -1554,9 +1551,8 @@ function WhyUsSection() {
               </div>
 
               <div
-                className={`font-mono text-4xl md:text-5xl font-bold mb-6 transition-colors duration-300 ${
-                  isHovered ? 'text-[#F26122]' : 'text-white/50'
-                }`}
+                className={`font-mono text-4xl md:text-5xl font-bold mb-6 transition-colors duration-300 ${isHovered ? 'text-[#F26122]' : 'text-white/50'
+                  }`}
               >
                 [ {item.num} ]
               </div>
@@ -1566,7 +1562,7 @@ function WhyUsSection() {
               <p className="font-sans text-sm text-white/60 leading-relaxed mt-auto">
                 {item.body}
               </p>
-              
+
               {/* Hidden SEO Keywords */}
               <div className="sr-only">{item.seo}</div>
             </div>
@@ -1666,7 +1662,7 @@ function OperatorDossierCard({ operator }: { operator: any, key?: string }) {
           </div>
           <div className="font-display text-2xl font-bold uppercase tracking-tighter text-white/50">{operator.codename}</div>
         </div>
-        
+
         <div className="font-mono text-[10px] uppercase tracking-widest text-white/50 mb-4">Verified Credentials:</div>
         <ul className="space-y-3 mb-auto overflow-y-auto pr-2">
           {operator.credentials.map((cred: string, i: number) => (
@@ -1692,7 +1688,7 @@ function TeamSection() {
       <div className="p-8 md:p-12 lg:p-20 border-b border-black/15 flex flex-col md:flex-row gap-8 md:gap-16 justify-between items-start md:items-end">
         <div className="max-w-3xl">
           <h2 className="text-5xl md:text-7xl font-bold uppercase leading-[0.85] tracking-tighter">
-            Elite Offensive Security<br/>
+            Elite Offensive Security<br />
             <span className="text-[#F26122]">Built on Experience, Skill, and Proven Results.</span>
           </h2>
         </div>
@@ -1736,7 +1732,7 @@ function TeamSection() {
             [ TALK TO AN OFFENSIVE OPERATOR ] <ArrowRight className="w-3 h-3" />
           </Link>
           <Link to="/request-audit" data-sound="heavy" className="font-mono text-[10px] uppercase tracking-widest px-8 py-4 border border-white/30 hover:bg-white/10 transition-colors flex items-center justify-center gap-3 group">
-            [ REQUEST AN AUDIT ] 
+            [ REQUEST AN AUDIT ]
             <ArrowRight className="w-3 h-3 transform group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
@@ -1839,8 +1835,8 @@ function TestimonialsSection() {
       <div className="p-8 md:p-12 lg:p-20 border-b border-black/15 flex flex-col md:flex-row gap-8 md:gap-16 justify-between items-start md:items-end">
         <div className="max-w-3xl">
           <h2 className="text-5xl md:text-7xl font-bold uppercase leading-[0.85] tracking-tighter">
-            Trusted By The<br/>
-            Teams Who Can't<br/>
+            Trusted By The<br />
+            Teams Who Can't<br />
             <span className="text-[#F26122]">Afford to Be Wrong.</span>
           </h2>
         </div>
@@ -1873,8 +1869,8 @@ function TestimonialsSection() {
       <div className="p-8 md:p-12 lg:p-20 bg-[#E5E5E5]">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           {testimonialsData.map((testimonial) => (
-            <div 
-              key={testimonial.id} 
+            <div
+              key={testimonial.id}
               className="bg-white border border-black/15 flex flex-col relative group hover:border-black transition-colors duration-300 shadow-[4px_4px_0_rgba(0,0,0,1)] cursor-crosshair h-full"
             >
               {/* File ID Tab */}
@@ -1885,7 +1881,7 @@ function TestimonialsSection() {
 
               <div className="p-6 md:p-8 flex flex-col flex-grow">
                 <div className="font-display text-4xl text-[#F26122] leading-none mb-4 opacity-50">"</div>
-                
+
                 <p className="font-sans text-sm md:text-base text-black/80 leading-relaxed mb-8 font-medium transition-colors duration-300 group-hover:text-black/60">
                   {testimonial.quoteStart}
                   <span className="text-black/80 transition-all duration-300 group-hover:text-[#F26122] group-hover:bg-[#F26122]/10 group-hover:px-1 rounded-sm">
@@ -1893,7 +1889,7 @@ function TestimonialsSection() {
                   </span>
                   {testimonial.quoteEnd}
                 </p>
-                
+
                 <div className="mt-auto">
                   <div className="font-mono text-xs font-bold text-black mb-4">
                     — {testimonial.author}
@@ -1935,7 +1931,7 @@ function TestimonialsSection() {
           <div className="flex-grow overflow-hidden relative flex items-center h-full">
             <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#E5E5E5] to-transparent z-10"></div>
             <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#E5E5E5] to-transparent z-10"></div>
-            <motion.div 
+            <motion.div
               className="flex whitespace-nowrap font-mono text-[10px] uppercase tracking-widest text-black/60"
               animate={{ x: ["0%", "-50%"] }}
               transition={{ ease: "linear", duration: 40, repeat: Infinity }}
@@ -1962,7 +1958,7 @@ function TestimonialsSection() {
           <div className="flex-grow overflow-hidden relative flex items-center h-full">
             <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#E5E5E5] to-transparent z-10"></div>
             <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#E5E5E5] to-transparent z-10"></div>
-            <motion.div 
+            <motion.div
               className="flex whitespace-nowrap font-mono text-[10px] uppercase tracking-widest text-black font-bold"
               animate={{ x: ["-50%", "0%"] }}
               transition={{ ease: "linear", duration: 35, repeat: Infinity }}
@@ -1988,7 +1984,7 @@ function TestimonialsSection() {
           <div className="flex-grow overflow-hidden relative flex items-center h-full">
             <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#E5E5E5] to-transparent z-10"></div>
             <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#E5E5E5] to-transparent z-10"></div>
-            <motion.div 
+            <motion.div
               className="flex whitespace-nowrap font-mono text-[10px] uppercase tracking-widest text-black font-bold"
               animate={{ x: ["0%", "-50%"] }}
               transition={{ ease: "linear", duration: 45, repeat: Infinity }}
@@ -2012,7 +2008,7 @@ function TestimonialsSection() {
         <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
         <div className="font-display text-8xl md:text-[120px] text-[#F26122] leading-none mb-8 opacity-50 absolute top-8 md:top-16">"</div>
         <h3 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-5xl relative z-10 mb-12">
-          The question isn't whether you've been compromised.<br/>
+          The question isn't whether you've been compromised.<br />
           <span className="text-[#F26122]">The question is whether you know it yet.</span>
         </h3>
         <p className="font-sans text-lg md:text-xl text-white/80 max-w-3xl mb-12 relative z-10">
@@ -2026,12 +2022,12 @@ function TestimonialsSection() {
 
       {/* Urgency Stat & Final CTA */}
       <div className="p-8 md:p-12 lg:p-20 flex flex-col items-center justify-center bg-[#E5E5E5]">
-        
+
         <div className="bg-white border-l-4 border-[#DC2626] p-6 md:p-8 shadow-[8px_8px_0_rgba(0,0,0,1)] max-w-3xl mb-16 relative">
           <div className="absolute -top-3 -left-3 w-6 h-6 bg-[#DC2626] flex items-center justify-center text-white font-bold text-xs">!</div>
           <p className="font-mono text-sm md:text-base leading-relaxed text-black">
             <span className="font-bold text-[#DC2626]">■ 98%</span> of Blackbox Labs engagements uncover at least one critical-severity finding.
-            <br/><br/>
+            <br /><br />
             The 2% that don't? Those clients request a re-scope within 30 days — because they know we missed something.
           </p>
         </div>
@@ -2039,13 +2035,13 @@ function TestimonialsSection() {
         <h3 className="font-display text-3xl md:text-5xl font-bold uppercase tracking-tighter mb-6 text-center max-w-3xl">
           Join the organizations that found their vulnerabilities before the bad guys did.
         </h3>
-        
+
         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-8">
           <Link to="/scoping-call" className="bg-black text-[#F26122] font-mono text-[10px] md:text-xs uppercase tracking-widest px-8 py-5 hover:bg-[#F26122] hover:text-white transition-colors flex items-center justify-center gap-3">
             <span className="animate-pulse">&gt;</span> BOOK_YOUR_SCOPING_CALL_
           </Link>
           <Link to="/request-audit" className="font-mono text-[10px] md:text-xs uppercase tracking-widest px-8 py-5 border border-black/30 hover:bg-black/5 transition-colors flex items-center justify-center gap-3 group">
-            [ DOWNLOAD CLIENT BRIEF ] 
+            [ DOWNLOAD CLIENT BRIEF ]
             <ArrowDown className="w-3 h-3 transform group-hover:translate-y-1 transition-transform" />
           </Link>
         </div>
@@ -2076,8 +2072,8 @@ function LatestIntelSection() {
       <div className="p-8 md:p-12 lg:p-20 border-b border-black/15 flex flex-col md:flex-row gap-8 md:gap-16 justify-between items-start md:items-end">
         <div className="max-w-3xl">
           <h2 className="text-5xl md:text-7xl font-bold uppercase leading-[0.85] tracking-tighter">
-            Know What<br/>
-            Attackers Know.<br/>
+            Know What<br />
+            Attackers Know.<br />
             <span className="text-[#F26122]">Before They Use It.</span>
           </h2>
         </div>
@@ -2157,7 +2153,7 @@ function LatestIntelSection() {
 function Home() {
   return (
     <>
-      <SEO 
+      <SEO
         title="Blackbox Labs | Elite Red Team & Offensive Security"
         description="Nation-state level red team operations, adversary simulation, and vulnerability research. We break systems before the bad guys do."
         canonical="/"
@@ -2165,22 +2161,22 @@ function Home() {
       />
       {/* Main Hero Content */}
       <main id="hero" className="flex-grow grid grid-cols-1 md:grid-cols-12 relative z-10">
-        
+
         {/* Left Column - Typography & CTA */}
         <div className="md:col-span-8 flex flex-col border-r border-black/15">
-          
+
           {/* Top Info Bar */}
           <div className="grid grid-cols-8 border-b border-black/15">
             <AuthorizationOverride />
             <div className="col-span-3 p-6 hidden md:flex items-center justify-center relative bg-[#E0E0E0]">
-               {/* Interactive Port Scanner Matrix */}
-               <PortScannerMatrix />
-               
-               {/* Corner markers */}
-               <div className="absolute top-2 left-2 w-1 h-1 border border-black/30"></div>
-               <div className="absolute top-2 right-2 w-1 h-1 border border-black/30"></div>
-               <div className="absolute bottom-2 left-2 w-1 h-1 border border-black/30"></div>
-               <div className="absolute bottom-2 right-2 w-1 h-1 border border-black/30"></div>
+              {/* Interactive Port Scanner Matrix */}
+              <PortScannerMatrix />
+
+              {/* Corner markers */}
+              <div className="absolute top-2 left-2 w-1 h-1 border border-black/30"></div>
+              <div className="absolute top-2 right-2 w-1 h-1 border border-black/30"></div>
+              <div className="absolute bottom-2 left-2 w-1 h-1 border border-black/30"></div>
+              <div className="absolute bottom-2 right-2 w-1 h-1 border border-black/30"></div>
             </div>
           </div>
 
@@ -2193,17 +2189,17 @@ function Home() {
               <span className="w-2 h-2 bg-black"></span>
               OFFENSIVE SECURITY / RED TEAM OPERATIONS
             </div>
-            
+
             <h1 className="text-5xl md:text-6xl lg:text-[6.5rem] font-bold uppercase leading-[0.85] tracking-tighter mb-6">
-              Uncovering <br/>
-              Critical <br/>
+              Uncovering <br />
+              Critical <br />
               Vulnerabilities.
             </h1>
-            
+
             <div className="font-mono text-[#F26122] text-sm md:text-base mb-6 font-bold">
               // We Break Systems Before They Do.
             </div>
-            
+
             <div className="font-mono text-sm max-w-xl leading-relaxed text-black/70 mb-10 space-y-4">
               <p>
                 Blackbox Labs is an elite Red Team firm. We simulate nation-state-level attacks against your infrastructure — finding the vulnerabilities your defenses missed before real adversaries exploit them.
@@ -2212,7 +2208,7 @@ function Home() {
                 No automated scanners. No checkbox reports. Just operators who think like attackers, because they used to be.
               </p>
             </div>
-            
+
             <div className="flex flex-wrap items-center gap-4">
               <Link to="/request-audit" className="bg-[#F26122] text-white font-mono text-[10px] uppercase tracking-widest px-8 py-4 hover:bg-black transition-colors flex items-center gap-3">
                 Request an Audit <ArrowRight className="w-3 h-3" />
@@ -2227,22 +2223,22 @@ function Home() {
           <div className="grid grid-cols-3 border-t border-black/15 bg-black/5">
             <div className="p-4 md:p-6 border-r border-black/15 flex flex-col justify-center">
               <div className="font-mono text-[9px] md:text-[10px] uppercase tracking-widest text-black/60 mb-2">Trusted By</div>
-              <div className="font-display text-sm md:text-lg font-bold tracking-widest uppercase">Fortune 500<br/>Banks</div>
+              <div className="font-display text-sm md:text-lg font-bold tracking-widest uppercase">Fortune 500<br />Banks</div>
             </div>
             <div className="p-4 md:p-6 border-r border-black/15 flex flex-col justify-center">
               <div className="font-mono text-[9px] md:text-[10px] uppercase tracking-widest text-black/60 mb-2">Securing</div>
-              <div className="font-display text-sm md:text-lg font-bold tracking-widest uppercase">Defense<br/>Contractors</div>
+              <div className="font-display text-sm md:text-lg font-bold tracking-widest uppercase">Defense<br />Contractors</div>
             </div>
             <div className="p-4 md:p-6 flex flex-col justify-center">
               <div className="font-mono text-[9px] md:text-[10px] uppercase tracking-widest text-black/60 mb-2">Protecting</div>
-              <div className="font-display text-sm md:text-lg font-bold tracking-widest uppercase">Global SaaS<br/>Platforms</div>
+              <div className="font-display text-sm md:text-lg font-bold tracking-widest uppercase">Global SaaS<br />Platforms</div>
             </div>
           </div>
         </div>
 
         {/* Right Column - Visuals & News */}
         <div className="md:col-span-4 flex flex-col">
-          
+
           {/* Visual Showcase Area */}
           <VisualShowcase />
 
@@ -2305,7 +2301,7 @@ const ContactTeaserSection = () => {
     <AnimatedSection id="contact" number="10" title="CONTACT" theme="dark" className="flex flex-col z-10">
       {/* Background Grid Pattern */}
       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-12 relative z-10">
         <div className="lg:col-span-6 p-8 md:p-12 lg:p-20 border-r border-white/15 flex flex-col justify-center">
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8">
@@ -2315,21 +2311,21 @@ const ContactTeaserSection = () => {
             The ones we didn't find? Those belong to threat actors who didn't ask permission.
           </p>
         </div>
-        
+
         <div className="lg:col-span-6 p-8 md:p-12 lg:p-20 flex flex-col justify-center bg-black/50 backdrop-blur-sm">
           <div className="bg-[#111] border border-white/20 p-8 shadow-[8px_8px_0_rgba(242,97,34,1)]">
             <div className="font-mono text-[10px] text-white/60 mb-2">root@blackbox:~$ ./request_audit.sh</div>
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
-              <input 
-                type="email" 
-                placeholder="[ Type Work Email ]" 
+              <input
+                type="email"
+                placeholder="[ Type Work Email ]"
                 className="flex-grow bg-transparent border border-white/20 p-4 font-mono text-sm text-white focus:outline-none focus:border-[#F26122] placeholder:text-white/60"
               />
               <Link to="/request-audit" data-sound="heavy" className="bg-[#F26122] text-white font-mono text-[10px] uppercase tracking-widest px-8 py-4 hover:bg-white hover:text-black transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
                 REQUEST AN AUDIT <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
-            
+
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-white/10">
               <Link to="/scoping-call" className="font-mono text-[10px] uppercase tracking-widest text-white/60 hover:text-white transition-colors flex items-center gap-2">
                 Or: Book a 30-min Scoping Call <ArrowRight className="w-3 h-3" />
@@ -2381,7 +2377,7 @@ import { BruteForceLoader } from './components/BruteForceLoader';
 
 function ScrollHandler() {
   const location = useLocation();
-  
+
   useEffect(() => {
     if (location.hash) {
       // Small timeout to ensure DOM is ready, especially if navigating from another page
@@ -2410,11 +2406,11 @@ export default function App() {
       <TacticalCursor />
       <TerminalTransition />
       <div className="min-h-screen bg-[#E5E5E5] text-[#111] font-sans selection:bg-[#FF4500] selection:text-white flex flex-col border-x border-black/15 max-w-[1600px] mx-auto relative">
-        
+
         {/* Corner Markers for the whole page */}
         <div className="absolute top-0 left-0 w-1.5 h-1.5 bg-[#FF4500] z-50"></div>
         <div className="absolute top-0 right-0 w-1.5 h-1.5 bg-[#FF4500] z-50"></div>
-        
+
         <Navbar />
 
         <Routes>
@@ -2429,7 +2425,7 @@ export default function App() {
           <Route path="/request-audit" element={<RequestAudit />} />
           <Route path="/scoping-call" element={<ScopingCall />} />
           <Route path="/services/red-team" element={<RedTeamPage />} />
-          
+
           {/* SEO Redirects for Network Pen Testing */}
           <Route path="/services/network" element={<Navigate to="/services/network-penetration-testing" replace />} />
           <Route path="/services/network-pen-testing" element={<Navigate to="/services/network-penetration-testing" replace />} />
@@ -2466,7 +2462,7 @@ export default function App() {
           <Route path="/legal/disclosure" element={<ResponsibleDisclosurePage />} />
           <Route path="/legal/nda" element={<NDAPage />} />
           <Route path="/legal/rules-of-engagement" element={<RulesOfEngagementPage />} />
-          
+
           {/* CCPA Redirect */}
           <Route path="/legal/ccpa" element={<Navigate to="/legal/privacy#ccpa" replace />} />
 

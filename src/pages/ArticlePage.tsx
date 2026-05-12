@@ -15,7 +15,7 @@ export const ArticlePage = () => {
   const handleBookmark = () => {
     setIsBookmarked(!isBookmarked);
   };
-  
+
   // Find article by matching the URL end
   const article = articles.find(a => a.url.endsWith(id || ''));
 
@@ -132,7 +132,7 @@ export const ArticlePage = () => {
             <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8">
               {article.title}
             </h1>
-            
+
             {/* Author Meta */}
             <div className="flex flex-wrap items-center gap-6 font-mono text-[10px] uppercase tracking-widest border-t border-black/15 pt-8">
               <div className="flex items-center gap-3">
@@ -158,7 +158,7 @@ export const ArticlePage = () => {
                 {article.excerpt}
               </p>
             </div>
-            
+
             <MarkdownRenderer
               content={(article as any).content || '## Content Coming Soon\n\nThis dossier is currently being redacted for public release.'}
               className="max-w-none mt-8"
@@ -169,9 +169,9 @@ export const ArticlePage = () => {
         {/* Sidebar - Intel Dossier HUD */}
         <div className="lg:col-span-4 bg-[#E5E5E5] border-l border-black/15">
           <div className="lg:sticky lg:top-[73px] lg:h-[calc(100vh-73px)] flex flex-col overflow-y-auto">
-            
+
             {/* Progress Bar */}
-            <div 
+            <div
               className="absolute top-0 left-0 h-[2px] bg-[#F26122] transition-all duration-150 ease-out z-10"
               style={{ width: `${scrollProgress}%` }}
             />
@@ -220,14 +220,13 @@ export const ArticlePage = () => {
                   const num = (index + 1).toString().padStart(2, '0');
                   return (
                     <li key={index}>
-                      <a 
-                        href={`#${item.id}`} 
+                      <a
+                        href={`#${item.id}`}
                         onClick={(e) => handleScroll(e, item.id)}
-                        className={`flex items-start gap-2 transition-all duration-200 group ${
-                          isActive 
-                            ? 'text-[#F26122] font-bold' 
+                        className={`flex items-start gap-2 transition-all duration-200 group ${isActive
+                            ? 'text-[#F26122] font-bold'
                             : 'text-black/60 hover:text-black'
-                        }`}
+                          }`}
                       >
                         <span className={`shrink-0 ${isActive ? 'text-[#F26122]' : 'text-black/60 group-hover:text-black/80'}`}>
                           {isActive ? `> [ ${num} ]` : `  [ ${num} ]`}

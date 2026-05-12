@@ -9,8 +9,19 @@ export function TerminalTransition() {
     Array(25).fill({ active: false, color: '#111' })
   );
   const [text, setText] = useState("");
-  
+
   const isInitialLoad = useRef(true);
+
+  useEffect(() => {
+    if (isVisible) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isVisible]);
 
   useEffect(() => {
     if (isInitialLoad.current) {
@@ -19,7 +30,7 @@ export function TerminalTransition() {
     }
 
     const path = location.pathname;
-    
+
     // Determine animation type and text
     let type = 'MAINFRAME';
     let loadingText = 'RETURNING TO // MAIN_FRAME...';
@@ -107,14 +118,14 @@ export function TerminalTransition() {
     // Phase 1: Chaos (Brute force)
     let chaosIterations = 0;
     const maxChaos = 10; // 500ms
-    
+
     const chaosInterval = setInterval(() => {
       setGrid(Array(25).fill(null).map(() => ({
         active: Math.random() > 0.5,
         color: Math.random() > 0.7 ? '#FF4500' : '#FFFFFF'
       })));
       chaosIterations++;
-      
+
       if (chaosIterations >= maxChaos) {
         clearInterval(chaosInterval);
         window.scrollTo(0, 0); // Scroll to top while screen is black
@@ -198,7 +209,7 @@ export function TerminalTransition() {
         ];
       } else if (animType === 'VULN_RES') {
         // Hex grid / memory block representation
-        const fullBlock = Array.from({length: 25}, (_, i) => i);
+        const fullBlock = Array.from({ length: 25 }, (_, i) => i);
         frames = [
           fullBlock, // Full memory block
           fullBlock, // Full memory block
@@ -320,7 +331,7 @@ export function TerminalTransition() {
           [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 22] // Shield
         ];
       } else if (animType === 'FILE') {
-        const all = Array.from({length: 25}, (_, i) => i);
+        const all = Array.from({ length: 25 }, (_, i) => i);
         frames = [
           all,
           [1, 2, 3, 6, 7, 8, 11, 12, 13, 16, 17, 18, 21, 22, 23],
@@ -328,7 +339,7 @@ export function TerminalTransition() {
         ];
       } else {
         // MAINFRAME
-        const all = Array.from({length: 25}, (_, i) => i);
+        const all = Array.from({ length: 25 }, (_, i) => i);
         const border = [0, 1, 2, 3, 4, 5, 9, 10, 14, 15, 19, 20, 21, 22, 23, 24];
         frames = [
           all,
@@ -343,32 +354,32 @@ export function TerminalTransition() {
           const currentFrame = frames[frameIndex];
           setGrid(Array(25).fill(null).map((_, i) => ({
             active: currentFrame.includes(i),
-            color: animType === 'INTEL' && i === 12 ? '#FF4500' : 
-                   animType === 'AUDIT' ? '#FF4500' : 
-                   animType === 'RED_TEAM' && (i === 11 || i === 13) ? '#FF4500' : 
-                   animType === 'NETWORK_PEN' && currentFrame.includes(i) ? '#FF4500' : 
-                   animType === 'APP_SEC' && frameIndex >= 2 && [1, 2, 3, 6, 11].includes(i) ? '#FF4500' : 
-                   animType === 'SOCIAL_ENG' && frameIndex >= 2 && i === 7 ? '#FF4500' : 
-                   animType === 'CLOUD_SEC' && frameIndex >= 3 && [2, 10, 14, 22].includes(i) ? '#FF4500' : 
-                   animType === 'VULN_RES' && frameIndex >= 2 && i === 12 ? '#FF0000' : 
-                   animType === 'PRIVACY' && frameIndex >= 1 && [6, 7, 8, 11, 13, 16, 17, 18, 1, 2, 3, 5, 9, 10, 14, 15, 19, 21, 22, 23].includes(i) ? '#00BFFF' : 
-                   animType === 'PRIVACY' && i === 12 ? '#FFFFFF' : 
-                   animType === 'TERMS' && currentFrame.includes(i) ? '#FF4500' : 
-                   animType === 'COOKIES' && currentFrame.includes(i) ? '#FFA500' : 
-                   animType === 'DISCLOSURE' && currentFrame.includes(i) ? '#00FF00' : 
-                   animType === 'NDA' && frameIndex >= 2 && [7, 12].includes(i) ? '#FF0000' : 
-                   animType === 'NDA' && currentFrame.includes(i) ? '#FFFFFF' : 
-                   animType === 'ROE' && frameIndex >= 3 && [1, 2, 3, 5, 9, 15, 19, 21, 22, 23].includes(i) ? '#FF0000' : 
-                   animType === 'ROE' && currentFrame.includes(i) ? '#FFFFFF' : 
-                   animType === 'CAREERS' && currentFrame.includes(i) ? '#00FF00' : 
-                   animType === 'PRESS' && frameIndex === 3 && [20, 21, 22, 23, 24].includes(i) ? '#FFFFFF' : 
-                   animType === 'PRESS' && currentFrame.includes(i) ? '#FF4500' : 
-                   animType === 'SPEAKING' && frameIndex >= 3 && [7, 11, 13, 2, 6, 8].includes(i) ? '#FF4500' : 
-                   animType === 'SPEAKING' && currentFrame.includes(i) ? '#FFFFFF' : 
-                   animType === 'TALKS' && frameIndex >= 3 && [1, 2, 3, 4, 5].includes(i) ? '#FF4500' : 
-                   animType === 'PARTNERS' && frameIndex >= 2 && [12, 17].includes(i) ? '#FF4500' : 
-                   animType === 'THANKS' && currentFrame.includes(i) ? '#FFD700' : 
-                   animType === 'SITEMAP' && frameIndex >= 2 && [6, 8, 11, 13, 16, 18].includes(i) ? '#FF4500' : '#FFFFFF'
+            color: animType === 'INTEL' && i === 12 ? '#FF4500' :
+              animType === 'AUDIT' ? '#FF4500' :
+                animType === 'RED_TEAM' && (i === 11 || i === 13) ? '#FF4500' :
+                  animType === 'NETWORK_PEN' && currentFrame.includes(i) ? '#FF4500' :
+                    animType === 'APP_SEC' && frameIndex >= 2 && [1, 2, 3, 6, 11].includes(i) ? '#FF4500' :
+                      animType === 'SOCIAL_ENG' && frameIndex >= 2 && i === 7 ? '#FF4500' :
+                        animType === 'CLOUD_SEC' && frameIndex >= 3 && [2, 10, 14, 22].includes(i) ? '#FF4500' :
+                          animType === 'VULN_RES' && frameIndex >= 2 && i === 12 ? '#FF0000' :
+                            animType === 'PRIVACY' && frameIndex >= 1 && [6, 7, 8, 11, 13, 16, 17, 18, 1, 2, 3, 5, 9, 10, 14, 15, 19, 21, 22, 23].includes(i) ? '#00BFFF' :
+                              animType === 'PRIVACY' && i === 12 ? '#FFFFFF' :
+                                animType === 'TERMS' && currentFrame.includes(i) ? '#FF4500' :
+                                  animType === 'COOKIES' && currentFrame.includes(i) ? '#FFA500' :
+                                    animType === 'DISCLOSURE' && currentFrame.includes(i) ? '#00FF00' :
+                                      animType === 'NDA' && frameIndex >= 2 && [7, 12].includes(i) ? '#FF0000' :
+                                        animType === 'NDA' && currentFrame.includes(i) ? '#FFFFFF' :
+                                          animType === 'ROE' && frameIndex >= 3 && [1, 2, 3, 5, 9, 15, 19, 21, 22, 23].includes(i) ? '#FF0000' :
+                                            animType === 'ROE' && currentFrame.includes(i) ? '#FFFFFF' :
+                                              animType === 'CAREERS' && currentFrame.includes(i) ? '#00FF00' :
+                                                animType === 'PRESS' && frameIndex === 3 && [20, 21, 22, 23, 24].includes(i) ? '#FFFFFF' :
+                                                  animType === 'PRESS' && currentFrame.includes(i) ? '#FF4500' :
+                                                    animType === 'SPEAKING' && frameIndex >= 3 && [7, 11, 13, 2, 6, 8].includes(i) ? '#FF4500' :
+                                                      animType === 'SPEAKING' && currentFrame.includes(i) ? '#FFFFFF' :
+                                                        animType === 'TALKS' && frameIndex >= 3 && [1, 2, 3, 4, 5].includes(i) ? '#FF4500' :
+                                                          animType === 'PARTNERS' && frameIndex >= 2 && [12, 17].includes(i) ? '#FF4500' :
+                                                            animType === 'THANKS' && currentFrame.includes(i) ? '#FFD700' :
+                                                              animType === 'SITEMAP' && frameIndex >= 2 && [6, 8, 11, 13, 16, 18].includes(i) ? '#FF4500' : '#FFFFFF'
           })));
           frameIndex++;
         } else {
@@ -396,13 +407,13 @@ export function TerminalTransition() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="fixed inset-0 z-[99998] bg-black flex items-center justify-center pointer-events-none"
+          className="fixed inset-0 z-[99998] bg-black flex items-center justify-center pointer-events-auto"
         >
           <div className="flex flex-col items-center gap-12">
             <div className="grid grid-cols-5 gap-1.5 md:gap-2">
               {grid.map((cell, i) => (
-                <div 
-                  key={i} 
+                <div
+                  key={i}
                   className="w-8 h-8 md:w-10 md:h-10 transition-colors duration-75"
                   style={{
                     backgroundColor: cell.active ? cell.color : '#111111',
@@ -411,7 +422,7 @@ export function TerminalTransition() {
                 />
               ))}
             </div>
-            
+
             <div className="font-mono text-[#FF4500] text-xs md:text-sm tracking-[0.3em] uppercase h-4 flex items-center justify-center">
               <span>{text}<span className="animate-pulse">_</span></span>
             </div>

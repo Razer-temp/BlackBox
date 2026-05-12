@@ -12,11 +12,22 @@ export function BruteForceLoader() {
   const [isLocked, setIsLocked] = useState(false);
 
   useEffect(() => {
+    if (isVisible) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isVisible]);
+
+  useEffect(() => {
     let interval: NodeJS.Timeout;
     let iterations = 0;
     const maxChaosIterations = 30; // 1.5s of chaos
     const lockInIterations = 20;   // 1.6s of locking in
-    
+
     // Phase 1: Chaos
     const runChaos = () => {
       interval = setInterval(() => {
@@ -29,7 +40,7 @@ export function BruteForceLoader() {
           };
         }));
         iterations++;
-        
+
         if (iterations >= maxChaosIterations) {
           clearInterval(interval);
           runLockIn();
@@ -41,12 +52,12 @@ export function BruteForceLoader() {
     const runLockIn = () => {
       let lockStep = 0;
       const targetShape = B_SHAPE;
-      
+
       interval = setInterval(() => {
         setGrid(prev => prev.map((cell, i) => {
           const shouldBeLocked = Math.random() < (lockStep / lockInIterations);
           const isPartOfTarget = targetShape.includes(i);
-          
+
           if (shouldBeLocked) {
             return {
               active: isPartOfTarget,
@@ -61,18 +72,18 @@ export function BruteForceLoader() {
             };
           }
         }));
-        
+
         lockStep++;
-        
+
         if (lockStep >= lockInIterations) {
           clearInterval(interval);
-          
+
           // Fully lock to B
           setGrid(Array(25).fill(null).map((_, i) => ({
             active: targetShape.includes(i),
             color: '#FFFFFF'
           })));
-          
+
           // Switch to L using "Digital Gravity" after a brief pause
           setTimeout(() => {
             const frames = [
@@ -114,17 +125,17 @@ export function BruteForceLoader() {
 
   return (
     <AnimatePresence>
-      <motion.div 
+      <motion.div
         initial={{ opacity: 1 }}
         animate={{ opacity: isLocked ? 0 : 1 }}
         transition={{ duration: 0.6, ease: "easeInOut" }}
-        className="fixed inset-0 z-[99999] bg-black flex items-center justify-center pointer-events-none"
+        className="fixed inset-0 z-[99999] bg-black flex items-center justify-center pointer-events-auto"
       >
         <div className="flex flex-col items-center gap-12">
           <div className="grid grid-cols-5 gap-1.5 md:gap-2">
             {grid.map((cell, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="w-8 h-8 md:w-10 md:h-10 transition-colors duration-75"
                 style={{
                   backgroundColor: cell.active ? cell.color : '#111111',
@@ -133,7 +144,7 @@ export function BruteForceLoader() {
               />
             ))}
           </div>
-          
+
           <div className="font-mono text-[#FF4500] text-xs md:text-sm tracking-[0.3em] uppercase h-4 flex items-center justify-center">
             {isLocked ? (
               <motion.span

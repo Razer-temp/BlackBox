@@ -78,13 +78,13 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({ title, lastUpd
 
   return (
     <div className="bg-black text-white min-h-screen font-sans selection:bg-[#FF4500] selection:text-white pt-32 pb-24">
-      <SEO 
+      <SEO
         title={`${title} | Blackbox Labs`}
         description={`Blackbox Labs ${title.toLowerCase()} — how we collect, use, and protect your information.`}
         noIndex={title === 'Terms of Service'}
       />
       <div className="max-w-7xl mx-auto px-8 md:px-12">
-        
+
         {/* Header */}
         <div className="mb-16 border-b border-white/15 pb-8">
           <div className="font-mono text-[10px] uppercase tracking-widest text-white/60 mb-4 flex items-center gap-2">
@@ -113,9 +113,9 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({ title, lastUpd
           {toc && toc.length > 0 && (
             <div className="lg:w-1/3 hidden lg:block">
               <div className="sticky top-32 bg-[#111] border-t-2 border-[#FF4500] border-x border-b border-white/10 flex flex-col relative overflow-hidden">
-                
+
                 {/* Progress Bar */}
-                <div 
+                <div
                   className="absolute top-0 left-0 h-[2px] bg-[#FF4500] transition-all duration-150 ease-out z-10"
                   style={{ width: `${scrollProgress}%` }}
                 />
@@ -145,14 +145,13 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({ title, lastUpd
                       const num = (index + 1).toString().padStart(2, '0');
                       return (
                         <li key={index}>
-                          <a 
-                            href={`#${item.id}`} 
+                          <a
+                            href={`#${item.id}`}
                             onClick={(e) => handleScroll(e, item.id)}
-                            className={`flex items-start gap-2 transition-all duration-200 group ${
-                              isActive 
-                                ? 'text-[#FF4500] font-bold' 
+                            className={`flex items-start gap-2 transition-all duration-200 group ${isActive
+                                ? 'text-[#FF4500] font-bold'
                                 : 'text-white/50 hover:text-white'
-                            }`}
+                              }`}
                           >
                             <span className={`shrink-0 ${isActive ? 'text-[#FF4500]' : 'text-white/60 group-hover:text-white/80'}`}>
                               {isActive ? `> [ ${num} ]` : `  [ ${num} ]`}
