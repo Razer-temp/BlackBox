@@ -18,6 +18,25 @@ export function HexDumpSeparator({ number, title }: { number: string, title: str
   const finalString = `[ // ${number} — ${title} ]`;
   const { playTyping } = useSound();
 
+  const [isAppReady, setIsAppReady] = useState(() => {
+    return sessionStorage.getItem('hasSeenLoader') === 'true';
+  });
+
+  useEffect(() => {
+    if (isAppReady) return;
+
+    const handleReady = () => setIsAppReady(true);
+    window.addEventListener('app-ready', handleReady);
+    
+    // Fallback timer just in case
+    const timer = setTimeout(() => setIsAppReady(true), 5500);
+    
+    return () => {
+      window.removeEventListener('app-ready', handleReady);
+      clearTimeout(timer);
+    };
+  }, [isAppReady]);
+
   useEffect(() => {
     let interval: NodeJS.Timeout;
     const hexChars = "0123456789ABCDEF";
@@ -27,7 +46,7 @@ export function HexDumpSeparator({ number, title }: { number: string, title: str
       return Array.from({ length: numHexes }).map(() => `0x${hexChars[Math.floor(Math.random() * 16)]}${hexChars[Math.floor(Math.random() * 16)]}`).join(' ');
     };
 
-    if (!isInView) {
+    if (!isInView || !isAppReady) {
       interval = setInterval(() => {
         setDisplayText(generateHex());
       }, 50);

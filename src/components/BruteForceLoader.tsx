@@ -5,7 +5,9 @@ const B_SHAPE = [0, 1, 2, 5, 8, 10, 11, 12, 15, 18, 20, 21, 22];
 const L_SHAPE = [0, 5, 10, 15, 20, 21, 22, 23];
 
 export function BruteForceLoader() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(() => {
+    return !sessionStorage.getItem('hasSeenLoader');
+  });
   const [grid, setGrid] = useState<{ active: boolean; color: string }[]>(
     Array(25).fill({ active: false, color: '#111' })
   );
@@ -107,7 +109,11 @@ export function BruteForceLoader() {
                 // Finish and fade out
                 setTimeout(() => {
                   setIsLocked(true);
-                  setTimeout(() => setIsVisible(false), 800); // Wait for fade out
+                  setTimeout(() => {
+                    setIsVisible(false);
+                    sessionStorage.setItem('hasSeenLoader', 'true');
+                    window.dispatchEvent(new Event('app-ready'));
+                  }, 800); // Wait for fade out
                 }, 400);
               }
             }, 120); // 120ms per frame for a smooth but visible drop
