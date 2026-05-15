@@ -15,11 +15,15 @@ const markdownComponents: Components = {
       {children}
     </h1>
   ),
-  h2: ({ children }) => (
-    <h2 className="text-xl font-black uppercase tracking-wider text-[#F26122] mb-4 mt-8">
-      // {String(children).toUpperCase()}
-    </h2>
-  ),
+  h2: ({ children }) => {
+    const text = String(children);
+    const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    return (
+      <h2 id={id} className="text-xl font-black uppercase tracking-wider text-[#F26122] mb-4 mt-8 scroll-mt-32">
+        // {text.toUpperCase()}
+      </h2>
+    );
+  },
   h3: ({ children }) => (
     <h3 className="text-lg font-bold uppercase tracking-wide text-black/90 mb-3 mt-6">
       {children}

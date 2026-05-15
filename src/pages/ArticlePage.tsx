@@ -20,13 +20,23 @@ export const ArticlePage = () => {
   // Find article by matching the URL end
   const article = articles.find(a => a.url.endsWith(id || ''));
 
-  // Define the TOC for the article
-  const toc = [
-    { id: 'executive-summary', label: 'EXECUTIVE_SUMMARY' },
-    { id: 'engagement-details', label: 'ENGAGEMENT_DETAILS' },
-    { id: 'terminal-output', label: 'TERMINAL_OUTPUT' },
-    { id: 'detection-remediation', label: 'DETECTION_&_REMEDIATION' }
-  ];
+  // Dynamically define the TOC for the article based on its content
+  const toc = React.useMemo(() => {
+    const dynamicToc = [{ id: 'executive-summary', label: 'EXECUTIVE_SUMMARY' }];
+    
+    if (article?.content) {
+      const headings = article.content.match(/^##\s+(.+)$/gm);
+      if (headings) {
+        headings.forEach(heading => {
+          const text = heading.replace(/^##\s+/, '');
+          const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+          const label = text.toUpperCase().replace(/\s+/g, '_');
+          dynamicToc.push({ id, label });
+        });
+      }
+    }
+    return dynamicToc;
+  }, [article]);
 
   useEffect(() => {
     const handleScrollSpy = () => {

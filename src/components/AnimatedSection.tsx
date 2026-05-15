@@ -13,7 +13,7 @@ export interface AnimatedSectionProps {
 
 export function HexDumpSeparator({ number, title }: { number: string, title: string }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { margin: "-50% 0px -50% 0px", once: true });
+  const isInView = useInView(ref, { margin: "-100px", once: true });
   const [displayText, setDisplayText] = useState("");
   const finalString = `[ // ${number} — ${title} ]`;
   const { playTyping } = useSound();
