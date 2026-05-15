@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Terminal } from 'lucide-react';
 import SEO from './SEO';
@@ -14,13 +14,24 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({ title, lastUpd
   const [activeSection, setActiveSection] = useState<string>('');
   const [scrollProgress, setScrollProgress] = useState(0);
   const [copied, setCopied] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScrollSpy = () => {
-      // Calculate reading progress
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = totalHeight > 0 ? Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100)) : 0;
-      setScrollProgress(progress);
+      // Calculate reading progress based on the main content
+      let progress = 0;
+      if (contentRef.current) {
+        const rect = contentRef.current.getBoundingClientRect();
+        const absoluteBottom = window.scrollY + rect.bottom;
+        const totalScrollable = absoluteBottom - window.innerHeight;
+        
+        if (totalScrollable > 0) {
+          progress = (window.scrollY / totalScrollable) * 100;
+        } else {
+          progress = 100;
+        }
+      }
+      setScrollProgress(Math.min(100, Math.max(0, progress)));
 
       if (!toc || toc.length === 0) return;
 
@@ -103,7 +114,7 @@ export const LegalPageLayout: React.FC<LegalPageLayoutProps> = ({ title, lastUpd
 
         <div className="flex flex-col lg:flex-row gap-16">
           {/* Main Content */}
-          <div className="lg:w-2/3">
+          <div className="lg:w-2/3" ref={contentRef}>
             <div className="prose prose-invert prose-p:font-sans prose-p:text-white/70 prose-p:leading-relaxed prose-headings:font-display prose-headings:uppercase prose-headings:tracking-tight prose-a:text-[#FF4500] prose-a:no-underline hover:prose-a:underline prose-li:font-sans prose-li:text-white/70 prose-strong:text-white max-w-none">
               {children}
             </div>

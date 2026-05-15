@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Share2, Bookmark } from 'lucide-react';
 import { articles } from '../data/articles';
@@ -11,6 +11,7 @@ export const ArticlePage = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [copied, setCopied] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const handleBookmark = () => {
     setIsBookmarked(!isBookmarked);
@@ -29,10 +30,20 @@ export const ArticlePage = () => {
 
   useEffect(() => {
     const handleScrollSpy = () => {
-      // Calculate reading progress
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = totalHeight > 0 ? Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100)) : 0;
-      setScrollProgress(progress);
+      // Calculate reading progress based on the main content
+      let progress = 0;
+      if (contentRef.current) {
+        const rect = contentRef.current.getBoundingClientRect();
+        const absoluteBottom = window.scrollY + rect.bottom;
+        const totalScrollable = absoluteBottom - window.innerHeight;
+        
+        if (totalScrollable > 0) {
+          progress = (window.scrollY / totalScrollable) * 100;
+        } else {
+          progress = 100;
+        }
+      }
+      setScrollProgress(Math.min(100, Math.max(0, progress)));
 
       const halfScreen = window.innerHeight / 2;
       let currentActive = toc[0].id; // Default to the first section
@@ -123,7 +134,7 @@ export const ArticlePage = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 flex-grow">
         {/* Main Content */}
-        <div className="lg:col-span-8 border-r border-black/15 bg-white">
+        <div className="lg:col-span-8 border-r border-black/15 bg-white" ref={contentRef}>
           {/* Article Header */}
           <div className="p-8 md:p-12 lg:p-20 border-b border-black/15">
             <div className="font-mono text-[10px] uppercase tracking-widest text-[#F26122] font-bold mb-6">
